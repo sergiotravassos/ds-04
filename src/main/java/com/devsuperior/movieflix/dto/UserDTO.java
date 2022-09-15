@@ -1,6 +1,7 @@
 package com.devsuperior.movieflix.dto;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import com.devsuperior.movieflix.entities.User;
 
@@ -11,6 +12,7 @@ public class UserDTO implements Serializable{
 	private Long id;
 	private String name;
 	private String email;
+	private Set<RoleDTO> roles;
 	
 	public UserDTO() {
 		
@@ -50,6 +52,14 @@ public class UserDTO implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<RoleDTO> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleDTO> roles) {
+		this.roles = roles;
 	}
 
 }

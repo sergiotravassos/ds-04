@@ -10,7 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.movieflix.dto.UserDTO;
 import com.devsuperior.movieflix.entities.User;
+import com.devsuperior.movieflix.mappers.UserMapper;
 import com.devsuperior.movieflix.repositories.UserRepository;
 import com.devsuperior.movieflix.services.exceptions.UnauthorizedException;
 
@@ -24,10 +26,15 @@ public class UserService implements UserDetailsService {
 	
 	
 	@Transactional(readOnly = true)
-	public User findProfile() {
+	public UserDTO findProfile() {
 		try {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			return userRepository.findByEmail(username);
+			
+			User user = userRepository.findByEmail(username);
+			UserDTO dto = UserMapper.userToUserDto(user);
+			
+			return dto;
+			//return UserMapper.userToUserDto(userRepository.findByEmail(username));
 		} catch (Exception e) {
 			throw new UnauthorizedException("Invalid user");
 		}
